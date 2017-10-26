@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户登录</title>
+    <link rel="stylesheet" type="text/css" href="/themes/default/login.css" />
+<link rel="stylesheet" type="text/css" href="/themes/default/plugins/easyui/easyui.css" />
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <script type="text/javascript" src="/scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.flexslider-min.js"></script>
+    <script type="text/javascript" src="/scripts/plugins/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/scripts/lang/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/scripts/common.js"></script>
+    <script type="text/javascript" src="/scripts/account/login.js"></script>
+</head>
+<body>
+    <div id="header">
+        <div class="box">
+            <div class="logo">
+                <span class="logoside l"></span><a title="智慧教室门户" href="./">
+                    <img  src="/themes/default/images/logo.png" alt="智慧教室门户" height="75"/></a><h1>
+                        智慧教室门户</h1>
+                <span class="logoside r"></span>
+            </div>
+        </div>
+    </div>
+    <div class="loginbody fixbackground">
+        <!-- Login Box -->
+        <div id="loginbox">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li style="background: url('/images/l1_02.png') center center no-repeat;"></li>
+                    <li style="background: url('/images/banner4.jpg') center center no-repeat #CAE6BD;">
+                    </li>
+                    <li style="background: url('/images/l1_02.png') center center no-repeat;"></li>
+                    <li style="background: url('/images/banner4.jpg') center center no-repeat #CAE6BD;">
+                    </li>
+                </ul>
+            </div>
+            <div class="loginForm">
+                <div class="outbox">
+                    <div class="logintitle">
+                        欢迎登录</div>
+                    <div class="fieldbox">
+                        <div class="up">
+                        </div>
+                        <div class="innerbox">
+                            <div class="sprite request-msg">
+                            </div>                            
+                            <dl class="dl-input sprite name-filed">
+                                <dt>用户登录ID：</dt>
+                                <dd class="">
+                                    <input type="text" name="userName" id="userName" class="textinput requset user-input" placeholder="请输入用户名" /></dd>
+                            </dl>
+                            <dl class="dl-input sprite pass-filed">
+                                <dt>登录密码：</dt>
+                                <dd class="">
+                                    <input type="password" name="userPasword" id="userPassword" class="textinput requset" placeholder="请输入密码" /></dd>
+                            </dl>
+                            <div class="typecode">
+                                <dl class="dl-input sprite code-filed">
+                                    <dt>输入验证码：</dt>
+                                    <dd>
+                                        <input type="text" name="txt_valiCode" id="txt_valiCode" class="textinput" placeholder="输入验证码" /></dd>
+                                </dl>
+                                <span class="code-img">
+                                    <img id="img_valiCode" alt="验证码" height="44" width="108" /></span>
+                            </div>
+                            <dl class="login-botton">
+                                <dd>
+                                    <button class="signinbutton" id="btn_login">
+                                        立即登录</button></dd>
+                            </dl>
+                        </div>
+                        <input type="hidden" id="ret_url" value="" />
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+        <!-- Login Box End -->
+    </div>
+    <!--copyright-->
+    <div id="footer">
+        <div class='box'>
+            <dl>
+                <dt>地址：中国西安长安南路563号</dt>
+                </dl>
+                <dl>
+                    <dt>版权所有© 西安邮电大学 网络工程 王星宇 </dt>
+            </dl>
+        </div>
+    </div>
+</body>
+</html> 
