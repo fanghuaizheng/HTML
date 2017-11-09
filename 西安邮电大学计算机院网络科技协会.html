@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!-- saved from url=(0024)http://www.xiyounet.org/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<!-- <meta name="viewport"    content="width=device-width, initial-scale=1.0"> -->
+	<!-- Turn off scale on mobile device -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="">
+	
+	<title>WIBA水果信息管理系统</title>
+	<link rel="shortcut icon" href="http://www.xiyounet.org/assets/images/gt_favicon.png">	
+	<!--<link rel="stylesheet" href="assets/css/Opensans.css">-->
+	<link rel="stylesheet" href="./西安邮电大学计算机院网络科技协会_files/bootstrap.min.css">
+	<link rel="stylesheet" href="./西安邮电大学计算机院网络科技协会_files/font-awesome.min.css">
+
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="./西安邮电大学计算机院网络科技协会_files/bootstrap-theme.css" media="screen">
+	<link rel="stylesheet" href="./西安邮电大学计算机院网络科技协会_files/main.css">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+<style type="text/css" abt="234"></style><script>//console.log('a')
+</script><script>doAdblock();
+function doAdblock(){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                'pps_pps': {
+                    'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/common\/pps_flvplay_s\.swf/,
+                    'replace': 'http://swf.adtchrome.com/pps_20140420.swf'
+                },
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if (/http:\/\/v.youku.com\/v_show\/.*/.test(window.location.href)){
+                    var tag = document.getElementById("playerBox").getAttribute("player")
+                    if (tag == "adt"){
+                        console.log("adt adv")
+                        return;
+                    }
+                }
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+// 20140730
+(function cnbeta() {
+    if (document.URL.indexOf('cnbeta.com') >= 0) {
+        var elms = document.body.querySelectorAll("p>embed");
+        Array.prototype.forEach.call(elms, function(elm) {
+            elm.style.marginLeft = "0px";
+        });
+    }
+})();
+//baidu
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var aa = function(){
+            var all = document.body.querySelectorAll("#content_left div,#content_left table");
+            for(var i = 0; i < all.length; i++){
+                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
+            }
+            all = document.body.querySelectorAll('.result.c-container[id="1"]');
+            //if(all.length == 1) return;
+            for(var i = 0; i < all.length; i++){
+                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
+                    all[i].style.display= "none";all[i].style.visibility='hidden';
+                }
+            }
+        }
+        aa();
+        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
+    };
+}
+// 20140922
+(function kill_360() {
+    if (document.URL.indexOf('so.com') >= 0) {
+        document.getElementById("e_idea_pp").style.display = none;
+    }
+})();
+if (document.URL.indexOf("tv.sohu.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+if (document.URL.indexOf("56.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+if (document.URL.indexOf("iqiyi.com") >= 0){
+    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
+        document.cookie='player_forcedType=h5_VOD'
+        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
+            console.log('no reload')
+        }else{
+            location.reload()
+            localStorage.reloadTime = Date.now();
+        }
+    }
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+
+<body class="home">
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom animated">
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+                                     <!-- <li><a href="2017wangye/file_submit/index.html">网页设计大赛</a></li>-->
+			<!--		<li><a href="http://ctf.xiyounet.org">CTF</a></li>-->
+				<!--	<li><a class="btn" href="join.html">2017纳新 最新消息</a>< -->
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+
+	<!-- Header -->
+	<header id="head">
+		<div class="container">
+			<div class="row">
+				<h1 class="lead">IDEA, SHARE, BEYOND</h1>
+				<p class="tagline">欢迎来到WI-BA水果信息管理系统<br>
+				在这里你可以查询全市的水果信息的基本情况。</p>
+				<p><a class="btn btn-default" role="button" href="http://www.xiyounet.org/about.html">立即注册</a> <a class="btn btn-action" role="button" href="http://www.xiyounet.org/sign/index.html" target="blank">立即登录</a></p>
+			</div>
+		</div>
+	</header>
+	<!-- /Header -->
+	
+
+	</div><!-- /container -->
+	
+	<!-- Social links. Ready-->
+	<section id="social">
+		<div class="container">
+			<div class="wrapper clearfix">
+			</div>
+		</div>
+	</section>
+	<!-- /social links -->
+
+
+	<footer id="footer" class="top-space">
+
+		<div class="footer1">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-3 widget">
+						<div class="widget-body">
+							<address>陕西省西安市长安区西安邮电大学 东区 FZ130	</address>
+								<p><b>邮箱:</b><a href="mailto:admin@xiyouant.org">admin@xiyouant.org</a><br></p>	
+						</div>
+					</div>
+
+					<div class="col-md-2 widget">
+						<h3 class="widget-title">Follow Us</h3>
+						<div class="widget-body">
+							<p class="follow-me-icons">
+								<a class="social-btn bspopover" data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true" data-content="&lt;img src=assets/images/wechat.jpg style=&#39;width: 140px; height: 140px;&#39;&gt;" data-original-title="" title="">
+      							<i class="fa fa-weixin fa-2"></i>
+    							</a>
+								<a href="https://github.com/xiyouant" target="_blank"><i class="fa fa-github fa-2"></i></a>
+							</p>	
+						</div>
+					</div>
+
+					<div class="col-md-2 widget">
+						<h3 class="widget-title">友情赞助</h3>
+						<div class="widget-body">
+								<p><a href="http://www.xiyounet.org/contribution.html" target="_blank">我要赞助</a></p><a href="http://www.xiyounet.org/contribution.html" target="_blank">
+								</a><p><a href="http://www.xiyounet.org/contribution.html" target="_blank"></a><a href="http://www.xiyounet.org/donorList.html" target="_blank">查看捐赠者列表</a></p>	
+						</div>
+					</div>
+
+					<div class="col-md-5 widget">
+						<h3 class="widget-title">内容许可</h3>
+						<div class="widget-body">
+							<p>本站由 <a href="https://www.digitalocean.com/?refcode=3c8422b30f9d">DigitalOcean</a> 提供服务器支持<a href="http://www.qiniu.com/"> 七牛 </a>提供 CDN 存储服务</p>
+							<p>除特别说明外，用户内容均采用
+							<a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-sa/3.0/cn/">知识共享署名-相同方式共享 3.0 中国大陆许可协议</a>进行许可</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+		<div class="footer2">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-6 col-sm-6 widget">
+						<div class="widget-body">
+<!-- 							<p class="simplenav">
+								<a href="#">主页</a> | 
+								<a href="http://blog.xiyounet.org">专栏</a> |
+								<a href="http://lib.xiyounet.org">网协图书馆</a> |
+								<a href="contact.html">联系我们</a> 
+							</p> -->
+							<p class="text-center">Copyright © 2010-2016  WIBA水果信息管理系统.</p>
+						</div>
+					</div>
+
+					<div class="col-md-6 col-sm-6 widget">
+						<div class="widget-body">
+							<p class="text-center">陕ICP备15013578号 当前呈现版本 15.11.4</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+	</footer>	
+		
+
+
+
+
+	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	<script src="./_files/analytics.js"></script><script src="./_files/jquery.min.js"></script>
+	<script src="./_files/bootstrap.min.js"></script>
+	<script src="./_files/headroom.min.js"></script>
+	<script src="./_files/jQuery.headroom.min.js"></script>
+	<script src="./_files/template.js"></script>
+	<script>
+		$(function(){
+			var nowD = new Date();
+			var d = nowD.getFullYear() - 2010;
+			$('#xiyounetWonderful').html(d);
+		})
+	</script>
+	<!--  popover initialization -->
+	<script>$(function () {$('[data-toggle="popover"]').popover()})</script>
+	<!-- console_info -->
+<!--	<script>window.console && window.console.info("喜欢看代码?或者是在找 Bug? 快来为我们添砖加瓦:\nhttp://join.xiyounet.org\n另外,随时欢迎小伙伴来参观和面基。地址：西安邮电大学长安校区，东区 FZ130");<-->
+	<!-- Google Analytics -->
+	<script src="./_files/Google_Analytics.js"></script>
+
+
+
+</body></html>
