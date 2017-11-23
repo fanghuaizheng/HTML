@@ -1,0 +1,73 @@
+From: <ÓÉ Windows Internet Explorer 8 ±£´æ>
+Subject: DIV In Line
+Date: Thu, 23 Nov 2017 16:53:18 +0800
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://192.168.1.35/1604/div_inline.html
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.6157
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>DIV In Line</TITLE>
+<META content=3D"text/html; charset=3Dgb2312" http-equiv=3DContent-Type>
+<STYLE>DIV {
+	WIDTH: 20px; BACKGROUND: #ff0000; FLOAT: left
+}
+</STYLE>
+
+<SCRIPT type=3Dtext/javascript>
+  var nIntervId;
+  //var timeoutId;
+ =20
+  function changeColor() {
+    //timeoutId =3D setTimeout(flashText, 500);
+    nIntervId =3D setInterval(flashText, 1000);
+  }
+ =20
+  function flashText() {
+    for (i=3D1;i<=3D10;i++) {
+      var oElem =3D document.getElementById("my_box"+(2*i));
+      oElem.style.color =3D oElem.style.color =3D=3D "red" ? "blue" : =
+"red";
+      oElem.style.background =3D oElem.style.background =3D=3D "yellow" =
+? "red" : "yellow";
+      var oElem =3D document.getElementById("my_box"+(2*i+1));
+      oElem.style.color =3D oElem.style.color =3D=3D "yellow" ? "blue" : =
+"yellow";
+      oElem.style.background =3D oElem.style.background =3D=3D "green" ? =
+"red" : "green";
+    }
+    //timeoutId =3D setTimeout(flashText, 500);
+  }
+ =20
+  function stopTextColor() {
+    clearInterval(nIntervId);
+    //clearTimeout(timeoutId);
+  }
+</SCRIPT>
+
+<META name=3DGENERATOR content=3D"MSHTML 8.00.6001.18702"></HEAD>
+<BODY style=3D"BACKGROUND: #000000" onload=3DchangeColor();>
+<DIV id=3Dmy_box1 class=3Ddiv-inline>a</DIV>
+<DIV id=3Dmy_box2 class=3Ddiv-inline>b</DIV>
+<DIV id=3Dmy_box3 class=3Ddiv-inline>c</DIV>
+<DIV id=3Dmy_box4 class=3Ddiv-inline>b</DIV>
+<DIV id=3Dmy_box5 class=3Ddiv-inline>a</DIV>
+<DIV id=3Dmy_box6 class=3Ddiv-inline>b</DIV>
+<DIV id=3Dmy_box7 class=3Ddiv-inline>c</DIV>
+<DIV id=3Dmy_box8 class=3Ddiv-inline>b</DIV>
+<DIV id=3Dmy_box9 class=3Ddiv-inline>a</DIV>
+<DIV id=3Dmy_box10 class=3Ddiv-inline>b</DIV>
+<DIV id=3Dmy_box11 class=3Ddiv-inline>c</DIV>
+<DIV id=3Dmy_box12 class=3Ddiv-inline>b</DIV>
+<DIV id=3Dmy_box13 class=3Ddiv-inline>a</DIV>
+<DIV id=3Dmy_box14 class=3Ddiv-inline>b</DIV>
+<DIV id=3Dmy_box15 class=3Ddiv-inline>c</DIV>
+<DIV id=3Dmy_box16 class=3Ddiv-inline>b</DIV>
+<DIV id=3Dmy_box17 class=3Ddiv-inline>a</DIV>
+<DIV id=3Dmy_box18 class=3Ddiv-inline>b</DIV>
+<DIV id=3Dmy_box19 class=3Ddiv-inline>c</DIV>
+<DIV id=3Dmy_box20 class=3Ddiv-inline>b</DIV><BUTTON=20
+onclick=3DstopTextColor();>Stop</BUTTON><BUTTON=20
+onclick=3DchangeColor();>Start</BUTTON> </BODY></HTML>
